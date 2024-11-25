@@ -7,7 +7,6 @@ import { handleError } from "../utils"
 
 export const createCategory = async({categoryName}:CreateCategoryParams) =>{
     try{
-       
         const newCategory =  ["test"] // graphql mutation
         return JSON.parse(JSON.stringify(newCategory))
     }

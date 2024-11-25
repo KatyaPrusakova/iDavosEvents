@@ -1,4 +1,4 @@
-import { Metadata } from "next"
+"use client";
 import Image from "next/image"
 import Link from "next/link"
 
@@ -6,10 +6,6 @@ import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
 import SignUpForm  from "./components/SignUpForm"
 
-export const metadata: Metadata = {
-  title: "Authentication",
-  description: "Authentication forms built using the components.",
-}
 
 export default function Page() {
   return (

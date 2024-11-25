@@ -37,8 +37,6 @@ export default function LoginForm() {
         if (response.data && response.data.data) {
           console.log("success")
 
-    
-
         } else {
           console.log("error to create user" )
           // console.log(response.data.errors[0].message)

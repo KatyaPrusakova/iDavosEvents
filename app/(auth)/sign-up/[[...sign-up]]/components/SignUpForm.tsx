@@ -1,5 +1,4 @@
-"use client"
-
+"use client";
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -11,7 +10,7 @@ import {
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { useState } from 'react';
+import {  useState } from 'react';
 import axios from 'axios';
 
 
@@ -21,11 +20,9 @@ export default function SignUpForm() {
     const [error, setError] = useState('');
     const [verification, setVerification] = useState(false);
     const [verificationCode, setVerificationCode] = useState('');
-  
+ 
     const handleSubmit = async (event: React.FormEvent) => {
       event.preventDefault();
-
-      console.log(process.env.NEXT_PUBLIC_QUORINI_PROJECT_KEY);
 
       try {
         const response = await axios.post(`https://api.quorini.io/${process.env.NEXT_PUBLIC_QUORINI_PROJECT_KEY}/gql`, {
@@ -36,10 +33,13 @@ export default function SignUpForm() {
           // specify your own user group
           query: `mutation create($input: createAdminInput!) { createAdmin(input: $input) { id }}`,
           variables: {
-            input: {
-              fullName: "Test name",
-        
-            },
+            "input": {
+              "email": email,
+              "firstName": "Katya",
+              "username": email,
+              "lastName": "hahaha",
+              "password": password,
+          },
           },
         });
         console.log(response, "response")
@@ -60,13 +60,15 @@ export default function SignUpForm() {
     const handleVerification = async (event: React.FormEvent) => {
       event.preventDefault();
 
-      console.log(process.env.QUORINI_PROJECT_KEY);
-      
-      
       try {
-        const response =  await axios.get(`https://auth.quorini.io/6717a23ec2d8ce69f6b145c4/verify-email/?code=${verificationCode}&username=${email}`)
+        const response =  await axios.get(`https://auth.quorini.io/${process.env.NEXT_PUBLIC_QUORINI_PROJECT_KEY}/verify-email/?code=${verificationCode}&username=${email}`)
        
         console.log(response.data.verified, "response")
+        if (response.data.verified) {
+          window.location.href = '/login';
+        } else {
+          console.log(response.data, "response")
+        }
       } catch (error) {
         console.error('Error logging in:', error);
       }
